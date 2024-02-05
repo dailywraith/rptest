@@ -1,3 +1,10 @@
 {
-  ".": "1.1.0"
+  ".": "1.1.0",
+  "extra-files": [
+    {
+      "type": "json",
+      "path": "eas.json",
+      "jsonpath": "$.build.qa.channel"
+    }
+  ]
 }
