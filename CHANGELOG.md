@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.1.0](https://github.com/dailywraith/rptest/compare/rptest-v2.0.0...rptest-v2.1.0) (2024-02-06)
+
+
+### Features
+
+* **test:** test update branch ([#16](https://github.com/dailywraith/rptest/issues/16)) ([c1b7c91](https://github.com/dailywraith/rptest/commit/c1b7c91be1c5443b886df1bac7f8ffa55ee3f763))
+
+
+### Bug Fixes
+
+* **test:** add rp GHA ([#13](https://github.com/dailywraith/rptest/issues/13)) ([d04b849](https://github.com/dailywraith/rptest/commit/d04b8499c56462d09c067496bf974d8ea0def46d))
+* **test:** add rp GHA permissions ([e25b851](https://github.com/dailywraith/rptest/commit/e25b851b34fd0482783c0de331a8ff731e6ad632))
+* **test:** add rp GHA permissions ([#14](https://github.com/dailywraith/rptest/issues/14)) ([7235c09](https://github.com/dailywraith/rptest/commit/7235c0938966c5c42d6d8e428bade635b31c8213))
+
 ## [2.0.0](https://github.com/dailywraith/rptest/compare/rptest-v1.1.0...rptest-v2.0.0) (2024-02-06)
 
 
