@@ -18,10 +18,10 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
 
-#      - uses: actions/checkout@v4
-#        ref: ${{ steps.release.outputs.pr.headBranchName }}
+      - uses: actions/checkout@v4
+        ref: ${{ fromJSON(steps.release.outputs.pr).headBranchName }}
 
-      - run: echo "${{ fromJSON(steps.release.outputs.pr).headBranchName }}"
+      - run: echo "`jq '.build.qa.channel="qa-v${{ steps.release.outputs.major }}.0.0"' eas.json`"
 
       - run: echo "kick off eas builds for qa ${{ steps.release.major }}"
         if: ${{ steps.release.outputs.prs_created }}
