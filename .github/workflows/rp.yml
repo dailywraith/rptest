@@ -22,6 +22,8 @@ jobs:
         with:
           ref: ${{ fromJSON(steps.release.outputs.pr).headBranchName }}
 
+      - run: echo "${{steps.release.outputs}}"
+
       - run: echo "`jq '.build.qa.channel="qa-v${{ steps.release.outputs.major }}.0.0"' eas.json`"
 
       - run: echo "kick off eas builds for qa ${{ steps.release.major }}"
