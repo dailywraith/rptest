@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.0.0](https://github.com/dailywraith/rptest/compare/rptest-v1.1.0...rptest-v2.0.0) (2024-02-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* **test:** add eas ([#8](https://github.com/dailywraith/rptest/issues/8))
+
+### Bug Fixes
+
+* **test:** add eas ([#8](https://github.com/dailywraith/rptest/issues/8)) ([18f2c57](https://github.com/dailywraith/rptest/commit/18f2c571d95e2a1d9fcb6cc8291f30321b52f8aa))
+* **test:** update release config again ([d4e08a9](https://github.com/dailywraith/rptest/commit/d4e08a95a18957f25723916e47bfad80cf1e717b))
+
 ## [1.1.0](https://github.com/dailywraith/rptest/compare/rptest-v1.0.0...rptest-v1.1.0) (2024-02-02)
 
 
