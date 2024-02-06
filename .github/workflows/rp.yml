@@ -25,10 +25,12 @@ jobs:
       - run: echo "version=`jq -r '.version' package.json | cut -d '.' -f 1,2`" >> $GITHUB_OUTPUT
         id: version
 
-      - run: jq '.build.qa.channel="qa-v${{ steps.version.outputs.version }}.0" | .build.production.channel="production-v${{ steps.version.outputs.version }}.0"' eas.json
+      - run: echo `jq '.build.qa.channel="qa-v${{ steps.version.outputs.version }}.0" | .build.production.channel="production-v${{ steps.version.outputs.version }}.0"' eas.json` > eas.json
 
-      - run: echo "kick off eas builds for qa ${{ steps.release.major }}"
+      - run: cat eas.json
+
+      - run: echo "kick off eas builds for qa"
         if: ${{ steps.release.outputs.prs_created }}
 
-      - run: echo "kick off uat build once release is on develop branch"
+      - run: echo "kick off uat build once release is on develop branch ${{ fromJSON(steps.release.outputs).releases_created }}"
         if: ${{ steps.release.outputs.releases_created }}
