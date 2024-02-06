@@ -19,6 +19,7 @@ jobs:
           token: ${{ secrets.PAT }}
 
       - uses: actions/checkout@v4
+        if: ${{ steps.release.outputs.prs_created }}
         with:
           ref: ${{ fromJSON(steps.release.outputs.pr).headBranchName }}
 
@@ -26,11 +27,13 @@ jobs:
         id: version
 
       - run: echo "$(jq '.build.qa.channel="qa-v${{ steps.version.outputs.version }}.0" | .build.production.channel="production-v${{ steps.version.outputs.version }}.0"' eas.json)" > eas.json
+        if: ${{ steps.release.outputs.prs_created }}
 
       - uses: stefanzweifel/git-auto-commit-action@v5
+        if: ${{ steps.release.outputs.prs_created }}
 
-      - run: echo "kick off eas builds for qa"
+      - run: echo "kick off eas build for qa"
         if: ${{ steps.release.outputs.prs_created }}
 
       - run: echo "kick off uat build once release is on develop branch ${{ steps.release.outputs.releases_created }}"
-        if: ${{ steps.release.outputs.releases_created }}
+        if: ${{ steps.release.outputs.release_created }}
