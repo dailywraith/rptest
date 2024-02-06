@@ -23,7 +23,7 @@ jobs:
           ref: ${{ fromJSON(steps.release.outputs.pr).headBranchName }}
 
       - run: echo "version=`jq '.version' package.json`" >> $GITHUB_OUTPUT
-        if: version
+        id: version
 
       - run: echo "`jq '.build.qa.channel="qa-v${{ steps.version.outputs.version }}"' eas.json`"
 
