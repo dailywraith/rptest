@@ -14,5 +14,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: google-github-actions/release-please-action@v4
+        id: release
         with:
           token: ${{ secrets.PAT }}
+
+#      - uses: actions/checkout@v4
+#        ref: ${{ steps.release.outputs.pr.headBranchName }}
+
+      - run: echo "${{ steps.release.outputs.pr }}
+
+      - run: echo "kick off eas builds for qa ${{ steps.release.major }}"
+        if: ${{ steps.release.outputs.prs_created }}
+
+      - run: echo "kick off uat build once release is on develop branch"
+        if: ${{ steps.release.outputs.releases_created }}
