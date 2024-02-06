@@ -22,12 +22,13 @@ jobs:
         with:
           ref: ${{ fromJSON(steps.release.outputs.pr).headBranchName }}
 
-      - run: echo "${{toJSON(steps.release.outputs)}}"
+      - run: echo "version=`jq '.version' package.json`" >> $GITHUB_OUTPUT
+        if: version
 
-      - run: echo "`jq '.build.qa.channel="qa-v${{ steps.release.outputs.major }}.0.0"' eas.json`"
+      - run: echo "`jq '.build.qa.channel="qa-v${{ steps.version.outputs.version }}"' eas.json`"
 
       - run: echo "kick off eas builds for qa ${{ steps.release.major }}"
         if: ${{ steps.release.outputs.prs_created }}
 
       - run: echo "kick off uat build once release is on develop branch"
-        if: ${{ steps.release.outputs.release_created }}
+        if: ${{ steps.release.outputs.releases_created }}
