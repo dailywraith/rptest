@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.5.0](https://github.com/dailywraith/rptest/compare/rptest-v2.4.0...rptest-v2.5.0) (2024-02-06)
+
+
+### Features
+
+* **test:** test 8 ([a968518](https://github.com/dailywraith/rptest/commit/a968518bc2dcfdfee82600e18ab294707095d84d))
+
+
+### Bug Fixes
+
+* **test:** test 8 ([5e5fc02](https://github.com/dailywraith/rptest/commit/5e5fc0257aa3cf14c3d4ae4e3a728a5110ce22f2))
+
 ## [2.4.0](https://github.com/dailywraith/rptest/compare/rptest-v2.3.0...rptest-v2.4.0) (2024-02-06)
 
 
