@@ -25,6 +25,7 @@ jobs:
 
       - run: echo "version=`jq -r '.version' package.json | cut -d '.' -f 1,2`" >> $GITHUB_OUTPUT
         id: version
+        if: ${{ steps.release.outputs.prs_created == 'true' }}
 
       - run: echo "$(jq '.build.qa.channel="qa-v${{ steps.version.outputs.version }}.0" | .build.production.channel="production-v${{ steps.version.outputs.version }}.0"' eas.json)" > eas.json
         if: ${{ steps.release.outputs.prs_created == 'true' }}
