@@ -21,10 +21,10 @@ jobs:
 #      - uses: actions/checkout@v4
 #        ref: ${{ steps.release.outputs.pr.headBranchName }}
 
-      - run: echo "${{ steps.release.outputs.pr.headBranchName }}"
+      - run: echo "${{ steps.release.outputs.pr }}" | jq '.headBranchName'
 
       - run: echo "kick off eas builds for qa ${{ steps.release.major }}"
         if: ${{ steps.release.outputs.prs_created }}
 
       - run: echo "kick off uat build once release is on develop branch"
-        if: ${{ steps.release.outputs.releases_created }}
+        if: ${{ steps.release.outputs.release_created }}
