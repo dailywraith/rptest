@@ -22,10 +22,10 @@ jobs:
         with:
           ref: ${{ fromJSON(steps.release.outputs.pr).headBranchName }}
 
-      - run: echo "version=`jq '.version' package.json`" >> $GITHUB_OUTPUT
+      - run: echo "version=`jq -r '.version' package.json | cut -d '.' -f 1,2`" >> $GITHUB_OUTPUT
         id: version
 
-      - run: echo "`jq '.build.qa.channel="qa-v${{ steps.version.outputs.version }}"' eas.json`"
+      - run: jq '.build.qa.channel="qa-v${{ steps.version.outputs.version }}.0"' eas.json
 
       - run: echo "kick off eas builds for qa ${{ steps.release.major }}"
         if: ${{ steps.release.outputs.prs_created }}
