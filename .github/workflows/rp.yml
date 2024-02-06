@@ -19,7 +19,8 @@ jobs:
           token: ${{ secrets.PAT }}
 
       - uses: actions/checkout@v4
-        ref: ${{ fromJSON(steps.release.outputs.pr).headBranchName }}
+        with:
+          ref: ${{ fromJSON(steps.release.outputs.pr).headBranchName }}
 
       - run: echo "`jq '.build.qa.channel="qa-v${{ steps.release.outputs.major }}.0.0"' eas.json`"
 
