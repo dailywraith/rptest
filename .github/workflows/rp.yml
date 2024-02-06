@@ -19,7 +19,7 @@ jobs:
           token: ${{ secrets.PAT }}
 
       - uses: actions/checkout@v4
-        if: ${{ steps.release.outputs.prs_created === 'true' }}
+        if: ${{ steps.release.outputs.prs_created == 'true' }}
         with:
           ref: ${{ fromJSON(steps.release.outputs.pr).headBranchName || 'develop' }}
 
@@ -36,4 +36,4 @@ jobs:
         if: ${{ steps.release.outputs.prs_created }}
 
       - run: echo "kick off uat build once release is on develop branch ${{ steps.release.outputs.releases_created }}"
-        if: ${{ steps.release.outputs.releases_created ==='true' }}
+        if: ${{ steps.release.outputs.releases_created == 'true' }}
