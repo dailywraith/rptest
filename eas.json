@@ -28,7 +28,7 @@
         "distribution": "internal",
         "buildType": "apk"
       },
-      "channel": "qa-v9.0.0"
+      "channel": "qa-v2.2.0"
     },
     "production": {
       "node": "18.18.2",
@@ -42,7 +42,7 @@
         "distribution": "internal",
         "buildType": "apk"
       },
-      "channel": "production-v9.0.0"
+      "channel": "production-v2.2.0"
     }
   },
   "cli": {
