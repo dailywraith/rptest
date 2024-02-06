@@ -21,7 +21,7 @@ jobs:
 #      - uses: actions/checkout@v4
 #        ref: ${{ steps.release.outputs.pr.headBranchName }}
 
-      - run: echo "${{ steps.release.outputs.pr.headBranchName }}
+      - run: echo "${{ steps.release.outputs.pr.headBranchName }}"
 
       - run: echo "kick off eas builds for qa ${{ steps.release.major }}"
         if: ${{ steps.release.outputs.prs_created }}
