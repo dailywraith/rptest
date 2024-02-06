@@ -36,5 +36,5 @@ jobs:
       - run: echo "kick off eas build for qa"
         if: ${{ steps.release.outputs.prs_created == 'true' }}
 
-      - run: echo "kick off uat build once release is on develop branch ${{ steps.release.outputs.releases_created }}"
+      - run: echo "kick off uat build once release is on develop branch"
         if: ${{ steps.release.outputs.releases_created == 'true' }}
