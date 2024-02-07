@@ -57,3 +57,46 @@ The method here is:
 The process can be tweaked to suit similar release process if we prefer, e.g. keep QA and UAT builds in synch by building both from the release branch, automatically releasing a production build once the release branch is merged and tagged.
 
 For determining the difference between an OTA and full release it is proposed to use breaking changes (major version number update). If a full release is required then the commit message should indicate that there is a breaking change and the appropriate build type will be produced.
+
+Developers will only need to make sure that their branch is up-to-date with the `develop` branch (preferably using rebase to preserve linear history).
+
+The issue here would be releasing hotfixes for previous version. A solution for this is to create a release branch for each major version and ensure that any fixes are ported forward.
+
+## Proposal 2
+
+* Automated releases as far as UAT
+* Automated versioning based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+* Production release version will come from latest tag (manual process) on `main` branch.
+* `release` branch automatically kept up-to-date
+* Release is tagged when `develop` is merged to `main`
+* UAT build is always latest version on `develop`
+* Must ensure linear commit history!
+* Production is always latest release tagged
+
+```mermaid
+gitGraph LR:
+    commit id: "chore: release v1.0.0" tag: "v1.0.0"
+    branch develop
+    commit id: "fix: broken"
+    branch "Release"
+    commit id: "prepare v1.0.1"
+    checkout develop
+    commit id: "feat: new hotness"
+    checkout "Release"
+    commit id: "prepare v1.1.0"
+    checkout develop
+    merge "Release" id: "chore: set v1.1.0"
+    commit id: "feat!: breaking change"
+    branch "Release 2"
+    commit id: "prepare v2.0.0"
+    checkout develop
+    merge "Release 2" id: "chore: set v2.0.0"
+    checkout main
+    merge develop id: "chore: release v2.0.0" tag: "v2.0.0"
+    checkout develop
+    merge main id: "merge tags"
+    branch "Release 3"
+    commit id: "prepare v2.0.1"
+```
+
+This approach comes with it's problems, including having to merge from `main` back into `develop` whenever a release is performed as we have to ensure that merges can be performed without issue. This can lead to merge hell in feature branches as changes can come from multiple sources further down the tree. This is closer to the traditional "git-flow" approach but does come with the disadvantage of merge issues.
