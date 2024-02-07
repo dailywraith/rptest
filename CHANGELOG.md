@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.2](https://github.com/dailywraith/rptest/compare/rptest-v2.5.1...rptest-v2.5.2) (2024-02-07)
+
+
+### Bug Fixes
+
+* **docs:** document release process ([6495b4f](https://github.com/dailywraith/rptest/commit/6495b4f0e0b794b4c5583bbf00a8862a2b271f6e))
+
 ## [2.5.1](https://github.com/dailywraith/rptest/compare/rptest-v2.5.0...rptest-v2.5.1) (2024-02-06)
 
 

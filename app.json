@@ -2,7 +2,7 @@
   "expo": {
     "name": "rptest",
     "slug": "rptest",
-    "version": "2.5.1",
+    "version": "2.5.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -16,10 +16,10 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "buildNumber": "2.5.1"
+      "buildNumber": "2.5.2"
     },
     "android": {
-      "versionCode": 500020501,
+      "versionCode": 500020502,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
