@@ -8,9 +8,10 @@
 * No `main` branch (I used `develop` here but it can be anything)
 * Avoids merge hell going between `main` and `develop`
 * `release` branch automatically kept up-to-date
-* release is tagged when release PR is merged
+* Release is tagged when release PR is merged
 * UAT build is always latest tag
 * Can use git tags to indicate which release is in production
+* Must ensure linear commit history!
 
 Using [Release Please](https://github.com/googleapis/release-please/tree/main) as it supports [expo](https://expo.dev) out of the box, I have set up a small demo repo that follows the pattern.
 
@@ -52,3 +53,7 @@ The method here is:
 6. When we want to release to UAT for testing merge the release branch (PR)
 7. Release Please will tag the new version and an automatic build will be started to UAT
 8. For production releases a manual job will be available that will build the latest tag
+
+The process can be tweaked to suit similar release process if we prefer, e.g. keep QA and UAT builds in synch by building both from the release branch, automatically releasing a production build once the release branch is merged and tagged.
+
+For determining the difference between an OTA and full release it is proposed to use breaking changes (major version number update). If a full release is required then the commit message should indicate that there is a breaking change and the appropriate build type will be produced.
