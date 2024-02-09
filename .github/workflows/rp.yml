@@ -1,0 +1,47 @@
+on:
+  push:
+    branches:
+      - develop
+      - rptest-v1
+
+name: release-please
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v4
+        id: release
+        with:
+          token: ${{ secrets.PAT }}
+
+      - uses: actions/checkout@v4
+        if: ${{ steps.release.outputs.prs_created == 'true' }}
+        with:
+          ref: ${{ fromJSON(steps.release.outputs.pr).headBranchName || 'develop' }}
+
+      - run: echo "version=`jq -r '.version' package.json | cut -d '.' -f 1,2`" >> $GITHUB_OUTPUT
+        name: Get new version
+        id: version
+        if: ${{ steps.release.outputs.prs_created == 'true' }}
+
+      - run: echo "${{steps.release.outputs.major}}.${{steps.release.outputs.minor}}.${{steps.release.outputs.patch}}"
+
+      - run: echo "$(jq '.build.qa.channel="qa-v${{ steps.version.outputs.version }}.0" | .build.production.channel="production-v${{ steps.version.outputs.version }}.0"' eas.json)" > eas.json
+        name: Update eas.json
+        if: ${{ steps.release.outputs.prs_created == 'true' }}
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        if: ${{ steps.release.outputs.prs_created == 'true' }}
+
+      - run: echo "kick off eas build for qa"
+        name: QA Build
+        if: ${{ steps.release.outputs.prs_created == 'true' }}
+
+      - run: echo "kick off uat build once release is on develop branch"
+        name: UAT build
+        if: ${{ steps.release.outputs.releases_created == 'true' }}
