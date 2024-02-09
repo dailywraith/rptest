@@ -1,0 +1,51 @@
+{
+  "build": {
+    "dev-client-simulator": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "channel": "dev-client-simulator",
+      "node": "18.18.2",
+      "env": {
+        "APP_ENV": "staging"
+      },
+      "android": {
+        "buildType": "apk"
+      },
+      "ios": {
+        "simulator": true
+      },
+      "cache": {
+        "disabled": "true",
+        "key": "bustcache1"
+      }
+    },
+    "qa": {
+      "extends": "production",
+      "env": {
+        "APP_ENV": "qa"
+      },
+      "android": {
+        "distribution": "internal",
+        "buildType": "apk"
+      },
+      "channel": "qa-v2.5.0"
+    },
+    "production": {
+      "node": "18.18.2",
+      "env": {
+        "APP_ENV": "production"
+      },
+      "cache": {
+        "key": "bustcache"
+      },
+      "android": {
+        "distribution": "internal",
+        "buildType": "apk"
+      },
+      "channel": "production-v2.5.0"
+    }
+  },
+  "cli": {
+    "version": ">= 5.6.0"
+  }
+}
