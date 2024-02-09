@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/dailywraith/rptest/compare/rptest-v1.1.1...rptest-v1.1.2) (2024-02-09)
+
+
+### Bug Fixes
+
+* **test:** test789 ([b690a93](https://github.com/dailywraith/rptest/commit/b690a9388ab139bfeb4800c568a88232e356f279))
+
 ## [1.1.1](https://github.com/dailywraith/rptest/compare/rptest-v1.1.0...rptest-v1.1.1) (2024-02-09)
 
 
