@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1](https://github.com/dailywraith/rptest/compare/rptest-v1.1.0...rptest-v1.1.1) (2024-02-09)
+
+
+### Bug Fixes
+
+* **test:** add eas config ([edcdd52](https://github.com/dailywraith/rptest/commit/edcdd525562ebcf62b1cb6ee1e975ddd1c45a750))
+* **test:** test456 ([e9d3831](https://github.com/dailywraith/rptest/commit/e9d3831e39ac7d837edd64a4dd89671c7901bf06))
+
 ## [1.1.0](https://github.com/dailywraith/rptest/compare/rptest-v1.0.0...rptest-v1.1.0) (2024-02-02)
 
 
