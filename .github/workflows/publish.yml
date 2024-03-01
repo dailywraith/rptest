@@ -28,8 +28,7 @@ jobs:
   publish:
     name: Publish App
     runs-on:
-      - self-hosted
-      - general
+      - ubuntu-latest
     steps:
       - name: Set Release Branch
         id: setReleaseBranch
