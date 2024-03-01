@@ -19,10 +19,6 @@ on:
         options:
           - ota
           - full
-      environment:
-        type: environment
-        description: 'Select the environment'
-        required: true
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
