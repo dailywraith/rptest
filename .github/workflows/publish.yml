@@ -34,21 +34,17 @@ jobs:
         id: setReleaseBranch
         # QA will release from release-please branch
         # Production will release from develop
-        run: |
-          echo "releaseBranch=${{ github.event.inputs.channel == 'qa' && 'release-please--branches--develop--components--dailypay-consumer-app' || 'develop' }}" >> $GITHUB_OUTPUTS
+        run: echo "releaseBranch=${{ github.event.inputs.channel == 'qa' && 'release-please--branches--develop--components--dailypay-consumer-app' || 'develop' }}" >> "$GITHUB_OUTPUT"
 
       - name: Echo release branch
-        run: |
-          echo "Publishing ${{ github.event.inputs.type }} build of ${{ steps.setReleaseBranch.outputs.releaseBranch }} to ${{ github.event.inputs.channel }}"
+        run: echo "Publishing ${{ github.event.inputs.type }} build of ${{ steps.setReleaseBranch.outputs.releaseBranch }} to ${{ github.event.inputs.channel }}"
 
       - name: Set eas Command
         id: setEasCommand
-        run: |
-          echo "easCommand=${{ github.event.inputs.type == 'ota' && 'update' || 'build' }} --auto --branch ${{ steps.setReleaseBranch.outputs.releaseBranch }} --profile ${{ github.event.input.channel }}" >> $GITHUB_OUTPUTS
+        run: echo "easCommand=${{ github.event.inputs.type == 'ota' && 'update' || 'build' }} --auto --branch ${{ steps.setReleaseBranch.outputs.releaseBranch }} --profile ${{ github.event.input.channel }}" "$GITHUB_OUTPUT"
 
       - name: Echo eas command
-        run: |
-          echo "Eas command -- ${{ steps.setEasCommand.outputs.easCommand }}"
+        run: echo "Eas command -- ${{ steps.setEasCommand.outputs.easCommand }}"
 
 #      - uses: actions/checkout@v4
 #        with:
