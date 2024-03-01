@@ -10,7 +10,6 @@ on:
         options:
           - qa
           - production
-          - dev-client
       type:
         description: 'Release Type'
         required: true
@@ -41,7 +40,7 @@ jobs:
 
       - name: Set eas Command
         id: setEasCommand
-        run: echo "easCommand=eas ${{ github.event.inputs.type == 'ota' && 'update' || 'build' }} --auto --branch ${{ steps.setReleaseBranch.outputs.releaseBranch }} --profile ${{ github.event.input.channel }}" >> "$GITHUB_OUTPUT"
+        run: echo "easCommand=eas ${{ github.event.inputs.type == 'ota' && 'update' || 'build' }} --auto --branch ${{ steps.setReleaseBranch.outputs.releaseBranch }} --profile ${{ github.event.inputs.channel }}" >> "$GITHUB_OUTPUT"
 
       - name: Echo eas command
         run: echo "Eas command -- ${{ steps.setEasCommand.outputs.easCommand }}"
