@@ -1,0 +1,81 @@
+name: Publish the app
+on:
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: 'Release Channel'
+        required: true
+        default: 'uat'
+        type: choice
+        options:
+          - qa
+          - production
+          - dev-client
+      type:
+        description: 'Release Type'
+        required: true
+        default: 'dev_client'
+        type: choice
+        options:
+          - ota
+          - full
+      environment:
+        type: environment
+        description: 'Select the environment'
+        required: true
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    name: Publish App
+    runs-on:
+      - self-hosted
+      - general
+    steps:
+      - name: Set Release Branch
+        id: setReleaseBranch
+        # QA will release from release-please branch
+        # Production will release from develop
+        run: echo "releaseBranch=${{ github.event.inputs.channel == 'qa' && 'release-please--branches--develop--components--dailypay-consumer-app' || 'develop' }} >> $GITHUB_OUTPUTS"
+
+      - name: Echo release branch
+        run: echo "Publishing ${{ github.event.inputs.type }} build of ${{ steps.setReleaseBranch.outputs.releaseBranch }} to ${{ github.event.inputs.channel }}"
+
+      - name: Set eas Command
+        id: setEasCommand
+        run: echo "easCommand=${{ github.event.inputs.type == 'ota' && 'update' || 'build' }} --auto --branch ${{ steps.setReleaseBranch.outputs.releaseBranch }} --profile ${{ github.event.input.channel }} >> $GITHUB_OUTPUTS"
+
+      - name: Echo eas command
+        run: echo "Eas command -- ${{ steps.setEasCommand.outputs.easCommand }}"
+
+#      - uses: actions/checkout@v4
+#        with:
+#          ref: ${{ steps.setReleaseBranch.outputs.releaseBranch }}
+#
+#      - uses: actions/setup-node@v4
+#        with:
+#          node-version: 18
+#          cache: yarn
+
+#      - uses: expo/expo-github-action@v8
+#        with:
+#          expo-version: latest
+#          expo-cache: true
+#          eas-cache: true
+#          token: ${{ secrets.EXPO_TOKEN }}
+#        env:
+#          NODE_OPTIONS: --max_old_space_size=8192
+#
+#      - name: Install dependencies
+#        run: yarn install --immutable
+
+#      - name: 🚀 Create preview
+#        uses: expo/expo-github-action/preview@v8
+#        with:
+#          command: eas update --auto --branch ${{ steps.setReleaseBranch.outputs.releaseBranch }}
+
+
+
