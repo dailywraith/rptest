@@ -41,7 +41,7 @@ jobs:
 
       - name: Set eas Command
         id: setEasCommand
-        run: echo "easCommand=${{ github.event.inputs.type == 'ota' && 'update' || 'build' }} --auto --branch ${{ steps.setReleaseBranch.outputs.releaseBranch }} --profile ${{ github.event.input.channel }}" "$GITHUB_OUTPUT"
+        run: echo "easCommand=eas ${{ github.event.inputs.type == 'ota' && 'update' || 'build' }} --auto --branch ${{ steps.setReleaseBranch.outputs.releaseBranch }} --profile ${{ github.event.input.channel }}" >> "$GITHUB_OUTPUT"
 
       - name: Echo eas command
         run: echo "Eas command -- ${{ steps.setEasCommand.outputs.easCommand }}"
