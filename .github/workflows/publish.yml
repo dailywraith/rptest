@@ -26,6 +26,8 @@ concurrency:
 jobs:
   publish:
     name: Publish App
+    runs-on:
+      - ubuntu-latest
     env:
       PAYTM_APOLLO_CLIENT_NPM_TOKEN: ${{ secrets.PAYTM_APOLLO_CLIENT_NPM_TOKEN }}
       GOOGLE_SIGNIN_TOKEN: ${{ secrets.GOOGLE_SIGNIN_TOKEN }}
