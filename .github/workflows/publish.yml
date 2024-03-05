@@ -59,9 +59,9 @@ jobs:
       - name: 🏗 Set eas Command
         id: setEasCommand
         run: |
-          if [[ "${{ github.event.inputs.type }}" == "ota" ]]
+          if [[ "${{ github.event.inputs.type }}" == "ota" ]]; then
             echo "easCommand=eas update --clear-cache --auto --non-interactive --branch ${{ steps.setExpoBranch.outputs.expoBranch }} --channel ${{ steps.setExpoBranch.outputs.expoBranch }} --profile ${{ github.event.inputs.channel }}" >> "$GITHUB_OUTPUT"
-          elif [[ "${{ github.event.inputs.type }}" == "full" ]]
+          elif [[ "${{ github.event.inputs.type }}" == "full" ]] ; then
             echo "easCommand=eas build --clear-cache --non-interactive --profile ${{ github.event.inputs.channel }} --auto-submit" >> "$GITHUB_OUTPUT"
           else
             echo "Unhandled event"
