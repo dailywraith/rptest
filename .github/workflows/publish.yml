@@ -39,7 +39,7 @@ jobs:
 
       - name: 🏗 Get latest tag
         id: getLatestTag
-        run: echo "tag=`git describe --abbrev=0 --tags || true`" >> "$GITHUB_OUTPUT"
+        run: echo "tag=`git describe --abbrev=0 --tags || echo 'develop'`" >> "$GITHUB_OUTPUT"
 
       - name: 🏗 Set Repo Release Ref
         id: setRepoReleaseRef
