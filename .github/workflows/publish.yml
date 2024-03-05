@@ -46,7 +46,7 @@ jobs:
         id: setRepoReleaseRef
         # QA will release from release-please branch
         # Production will release from latest tag on develop
-        run: echo "repoReleaseRef=${{ github.event.inputs.channel == 'qa' && 'release-please--branches--develop--components--dailypay-consumer-app' || steps.getLatestTag.outputs.tag }}" >> "$GITHUB_OUTPUT"
+        run: echo "repoReleaseRef=${{ github.event.inputs.channel == 'qa' && 'release-please--branches--develop--components--rptest' || steps.getLatestTag.outputs.tag }}" >> "$GITHUB_OUTPUT"
 
       - name: 🏗 Checkout release branch
         uses: actions/checkout@v4
