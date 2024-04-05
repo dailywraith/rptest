@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.5.3](https://github.com/dailywraith/rptest/compare/rptest-v2.5.2...rptest-v2.5.3) (2024-04-05)
+
+
+### Bug Fixes
+
+* add publish to v2 branch ([cfe5d80](https://github.com/dailywraith/rptest/commit/cfe5d80d828bba5ca7d9ed6687ba67fd02387674))
+* branch v2 ([5209efa](https://github.com/dailywraith/rptest/commit/5209efa107d203eee08fa52ddc7dbdda966b6730))
+* branch v2 ([21ef774](https://github.com/dailywraith/rptest/commit/21ef77479783db82e30258f2c2e16ff364c3687a))
+
 ## [2.5.2](https://github.com/dailywraith/rptest/compare/rptest-v2.5.1...rptest-v2.5.2) (2024-02-07)
 
 
