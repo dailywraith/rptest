@@ -2,7 +2,7 @@ on:
   push:
     branches:
       - develop
-      - rptest-v1
+      - rptest-v*
 
 name: release-please
 
@@ -17,13 +17,13 @@ jobs:
       - uses: google-github-actions/release-please-action@v4
         id: release
         with:
-          token: ${{ secrets.PAT }}
           target-branch: ${{ github.ref_name }}
+          token: ${{ secrets.PAT }}
 
       - uses: actions/checkout@v4
         if: ${{ steps.release.outputs.prs_created == 'true' }}
         with:
-          ref: ${{ fromJSON(steps.release.outputs.pr).headBranchName || 'develop' }}
+          ref: ${{ fromJSON(steps.release.outputs.pr).headBranchName || github.ref_name }}
 
       - run: echo "version=`jq -r '.version' package.json | cut -d '.' -f 1,2`" >> $GITHUB_OUTPUT
         name: Get new version
