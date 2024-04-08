@@ -25,5 +25,5 @@ jobs:
 
   caller:
     name: call
-    uses: ./github/workflows/testy2.yml
+    uses: ./.github/workflows/testy2.yml
     secrets: inherit
