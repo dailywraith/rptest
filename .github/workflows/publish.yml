@@ -21,6 +21,7 @@ on:
 
 jobs:
   publish:
+    # Only run on certain branches to prevent releasing from undesirable ones
     if: contains(github.ref_name, 'release-please--branches') || contains(github.ref_name, 'rptest-v') || github.ref_name == 'develop'
     name: Publish App
     runs-on:
@@ -40,13 +41,11 @@ jobs:
 
       - name: 🏗 Set Repo Release Ref
         id: setRepoReleaseRef
-        # QA will release from release-please branch
-        # Production will release from latest tag on desired branch
-        # if a tag is selected as reference it will be the release version no matter what is picked
+        # QA will release from head of selected branch
+        # Production will release from latest tag on selected branch
+        # if a tag is selected as reference it will be the release version
         run: |
-          if [[ "${{ contains(github.ref, 'refs/tags') }}" == 'true' ]]; then
-            echo "repoReleaseRef=${{ github.ref }}" >> "$GITHUB_OUTPUT"
-          elif [[ "${{ github.event.inputs.channel }}" == "qa" ]]; then
+          if [[ "${{ github.event.inputs.channel }}" == "qa" ]]; then
             echo "repoReleaseRef=${{ github.ref }}" >> "$GITHUB_OUTPUT"
           elif [[ "${{ github.event.inputs.channel }}" == "production" ]] ; then
             echo "repoReleaseRef=refs/tags/${{ steps.getLatestTag.outputs.tag }}" >> "$GITHUB_OUTPUT"
