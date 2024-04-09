@@ -1,5 +1,28 @@
 # Changelog
 
+## [3.1.0](https://github.com/dailywraith/rptest/compare/rptest-v3.0.0...rptest-v3.1.0) (2024-04-09)
+
+
+### Features
+
+* testiness v1.1 ([66b301b](https://github.com/dailywraith/rptest/commit/66b301bb79743683cee4449a6e919430ce48918e))
+* testiness v1.1 ([c44db33](https://github.com/dailywraith/rptest/commit/c44db33348b75b4ef9183ee0e9bf28cf4363cbaf))
+* testiness v1.4 ([06bc6dc](https://github.com/dailywraith/rptest/commit/06bc6dc62bead13556ce1e4c5533d4942022d7f6))
+* testiness v1.5 ([4590609](https://github.com/dailywraith/rptest/commit/45906099d75c5089512d1aa383788212c4eb6272))
+* testiness v1.7 ([ccb29bd](https://github.com/dailywraith/rptest/commit/ccb29bd20b1443b9a756e5acbf9241c500e981c1))
+* testiness v1.7 ([0421bf3](https://github.com/dailywraith/rptest/commit/0421bf3a079a1259b413ef7ce6bfa69a95fd440b))
+* testiness v1.8 ([aa90a70](https://github.com/dailywraith/rptest/commit/aa90a70974ccd86a6a0ce038dda9786ea3018c41))
+
+
+### Bug Fixes
+
+* add testiness ([e312d48](https://github.com/dailywraith/rptest/commit/e312d480097db1ca631c47e4d3983dc36c8d42ac))
+* testiness ([197ea13](https://github.com/dailywraith/rptest/commit/197ea133360f3387a37b82ad30815f16a889a821))
+* testiness2 ([da0a896](https://github.com/dailywraith/rptest/commit/da0a896447efd159fc55b7104ba76d0762a2e057))
+* testiness2 ([4284b61](https://github.com/dailywraith/rptest/commit/4284b619bd238b9dbb9b1c5d31db20636cdf3b68))
+* testiness2 ([5b0d50b](https://github.com/dailywraith/rptest/commit/5b0d50bdb5280770408dfd767aefa7866235fb0d))
+* testiness2 ([55a236a](https://github.com/dailywraith/rptest/commit/55a236a5f814548aaf023bf84bd1e8e817b49f08))
+
 ## [3.0.0](https://github.com/dailywraith/rptest/compare/rptest-v2.5.2...rptest-v3.0.0) (2024-04-05)
 
 
