@@ -1,0 +1,80 @@
+name: Publish the app
+on:
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: "Release Channel"
+        required: true
+        default: "qa"
+        type: choice
+        options:
+          - qa
+          - production
+      type:
+        description: "Release Type"
+        required: true
+        default: "ota"
+        type: choice
+        options:
+          - ota
+          - full
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    if: contains(github.ref_name, 'release-please--branches') || contains(github.ref_name, 'rptest-v') || github.ref_name == 'develop'
+    name: Publish App
+    runs-on:
+      - ubuntu-latest
+    env:
+      PAYTM_APOLLO_CLIENT_NPM_TOKEN: ${{ secrets.PAYTM_APOLLO_CLIENT_NPM_TOKEN }}
+      GOOGLE_SIGNIN_TOKEN: ${{ secrets.GOOGLE_SIGNIN_TOKEN }}
+    steps:
+      - name: 🏗 Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🏗 Get latest tag
+        id: getLatestTag
+        run: echo "tag=`git describe --abbrev=0 --tags || echo 'develop'`" >> "$GITHUB_OUTPUT"
+
+      - name: 🏗 Set Repo Release Ref
+        id: setRepoReleaseRef
+        # QA will release from release-please branch
+        # Production will release from latest tag on desired branch
+        run: echo "repoReleaseRef=${{ github.event.inputs.channel == 'qa' && github.ref || 'tags/'steps.getLatestTag.outputs.tag }}" >> "$GITHUB_OUTPUT"
+
+      - name: ref
+        run: echo "${{ github.ref }}, ${{ github.ref_name }}, ${{ steps.getLatestTag.outputs.tag }}, ${{ steps.setRepoReleaseRef.outputs.repoReleaseRef }}"
+
+      - name: 🏗 Checkout release branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.setRepoReleaseRef.outputs.repoReleaseRef }}
+          fetch-depth: 0
+
+      - name: 🏗 Set Expo Release Branch
+        id: setExpoBranch
+        run: echo "expoBranch=`jq -r '.build.${{ github.event.inputs.channel }}.channel' eas.json`" >> "$GITHUB_OUTPUT"
+
+      - name: 🏗 Echo Repo branch
+        run: echo "Publishing ${{ github.event.inputs.type }} build of ${{ steps.setRepoReleaseRef.outputs.repoReleaseRef }} to ${{ github.event.inputs.channel }}, ${{ steps.setExpoBranch.outputs.expoBranch }}"
+
+      - name: 🏗 Set eas Command
+        id: setEasCommand
+        run: |
+          if [[ "${{ github.event.inputs.type }}" == "ota" ]]; then
+            echo "easCommand=eas update --clear-cache --auto --non-interactive --branch ${{ steps.setExpoBranch.outputs.expoBranch }} --channel ${{ steps.setExpoBranch.outputs.expoBranch }} --profile ${{ github.event.inputs.channel }}" >> "$GITHUB_OUTPUT"
+          elif [[ "${{ github.event.inputs.type }}" == "full" ]] ; then
+            echo "easCommand=eas build --clear-cache --non-interactive --profile ${{ github.event.inputs.channel }} --auto-submit" >> "$GITHUB_OUTPUT"
+          else
+            echo "Unhandled event"
+            exit -1;
+          fi
+
+      - name: 🏗 Echo eas command
+        run: echo "Eas command -- ${{ steps.setEasCommand.outputs.easCommand }}"
