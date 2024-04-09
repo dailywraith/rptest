@@ -42,7 +42,7 @@ jobs:
         run: echo "tag=`git describe --abbrev=0 --tags || echo 'develop'`" >> "$GITHUB_OUTPUT"
 
       - name: ref
-        run: echo "${{ github.ref_name }}, ${{ steps.getLatestTag.outputs.tag }}"
+        run: echo "${{ github.ref }}, ${{ github.ref_name }}, ${{ steps.getLatestTag.outputs.tag }}"
 
       - name: 🏗 Set Repo Release Ref
         id: setRepoReleaseRef
