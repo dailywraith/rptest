@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.0](https://github.com/dailywraith/rptest/compare/rptest-v2.6.0...rptest-v2.7.0) (2024-04-09)
+
+
+### Features
+
+* testiness v1.7 ([0c6ce8f](https://github.com/dailywraith/rptest/commit/0c6ce8fccd42a23515d604a32ceae378390b7a2b))
+
 ## [2.6.0](https://github.com/dailywraith/rptest/compare/rptest-v2.5.3...rptest-v2.6.0) (2024-04-09)
 
 
