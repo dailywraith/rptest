@@ -19,10 +19,6 @@ on:
           - ota
           - full
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   publish:
     if: contains(github.ref_name, 'release-please--branches') || contains(github.ref_name, 'rptest-v') || github.ref_name == 'develop'
@@ -46,12 +42,23 @@ jobs:
         id: setRepoReleaseRef
         # QA will release from release-please branch
         # Production will release from latest tag on desired branch
-        run: echo "repoReleaseRef=${{ github.event.inputs.channel == 'qa' && github.ref || 'tags/${{ steps.getLatestTag.outputs.tag }}' }}" >> "$GITHUB_OUTPUT"
+        # if a tag is selected as reference it will be the release version no matter what is picked
+        run: |
+          if [[ "${{ contains(github.ref, 'refs/tags') }}" == 'true' ]]; then
+            echo "repoReleaseRef=${{ github.ref }}" >> "$GITHUB_OUTPUT"
+          elif [[ "${{ github.event.inputs.channel }}" == "qa" ]]; then
+            echo "repoReleaseRef=${{ github.ref }}" >> "$GITHUB_OUTPUT"
+          elif [[ "${{ github.event.inputs.type }}" == "production" ]] ; then
+            echo "repoReleaseRef=refs/tags/${{ steps.getLatestTag.outputs.tag }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "Unhandled event"
+            exit -1;
+          fi
 
       - name: ref
         run: echo "${{ github.ref }}, ${{ github.ref_name }}, ${{ steps.getLatestTag.outputs.tag }}, ${{ steps.setRepoReleaseRef.outputs.repoReleaseRef }}"
 
-      - name: 🏗 Checkout release branch
+      - name: 🏗 Checkout release ref
         uses: actions/checkout@v4
         with:
           ref: ${{ steps.setRepoReleaseRef.outputs.repoReleaseRef }}
