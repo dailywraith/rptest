@@ -42,7 +42,7 @@
         "distribution": "internal",
         "buildType": "apk"
       },
-      "channel": "production-v2.9.0"
+      "channel": "production-v2.10.0"
     }
   },
   "cli": {
