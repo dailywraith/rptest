@@ -46,7 +46,7 @@ jobs:
         id: setRepoReleaseRef
         # QA will release from release-please branch
         # Production will release from latest tag on desired branch
-        run: echo "repoReleaseRef=${{ github.event.inputs.channel == 'qa' && github.ref || 'tags/'steps.getLatestTag.outputs.tag }}" >> "$GITHUB_OUTPUT"
+        run: echo "repoReleaseRef=${{ github.event.inputs.channel == 'qa' && github.ref || 'tags/${{ steps.getLatestTag.outputs.tag }}' }}" >> "$GITHUB_OUTPUT"
 
       - name: ref
         run: echo "${{ github.ref }}, ${{ github.ref_name }}, ${{ steps.getLatestTag.outputs.tag }}, ${{ steps.setRepoReleaseRef.outputs.repoReleaseRef }}"
