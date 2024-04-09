@@ -3,17 +3,17 @@ on:
   workflow_dispatch:
     inputs:
       channel:
-        description: 'Release Channel'
+        description: "Release Channel"
         required: true
-        default: 'qa'
+        default: "qa"
         type: choice
         options:
           - qa
           - production
       type:
-        description: 'Release Type'
+        description: "Release Type"
         required: true
-        default: 'ota'
+        default: "ota"
         type: choice
         options:
           - ota
@@ -32,6 +32,9 @@ jobs:
       PAYTM_APOLLO_CLIENT_NPM_TOKEN: ${{ secrets.PAYTM_APOLLO_CLIENT_NPM_TOKEN }}
       GOOGLE_SIGNIN_TOKEN: ${{ secrets.GOOGLE_SIGNIN_TOKEN }}
     steps:
+      - name: ref
+        run: echo "${{ github.ref_name }}"
+
       - name: 🏗 Checkout repo
         uses: actions/checkout@v4
         with:
@@ -44,7 +47,7 @@ jobs:
       - name: 🏗 Set Repo Release Ref
         id: setRepoReleaseRef
         # QA will release from release-please branch
-        # Production will release from latest tag on develop
+        # Production will release from latest tag on desired branch
         run: echo "repoReleaseRef=${{ github.event.inputs.channel == 'qa' && 'release-please--branches--develop--components--rptest' || steps.getLatestTag.outputs.tag }}" >> "$GITHUB_OUTPUT"
 
       - name: 🏗 Checkout release branch
