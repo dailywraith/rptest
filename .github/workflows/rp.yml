@@ -32,7 +32,7 @@ jobs:
 
       - run: echo "${{steps.release.outputs.major}}.${{steps.release.outputs.minor}}.${{steps.release.outputs.patch}}"
 
-      - run: echo "$(jq '.build.qa.channel="qa-v${{ steps.version.outputs.version }}.0" | .build.production.channel="production-v${{ steps.version.outputs.version }}.0"' eas.json)" > eas.json
+      - run: echo "$(jq '.build.production.channel="production-v${{ steps.version.outputs.version }}.0"' eas.json)" > eas.json
         name: Update eas.json
         if: ${{ steps.release.outputs.prs_created == 'true' }}
 
