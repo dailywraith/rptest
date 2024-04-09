@@ -32,9 +32,6 @@ jobs:
       PAYTM_APOLLO_CLIENT_NPM_TOKEN: ${{ secrets.PAYTM_APOLLO_CLIENT_NPM_TOKEN }}
       GOOGLE_SIGNIN_TOKEN: ${{ secrets.GOOGLE_SIGNIN_TOKEN }}
     steps:
-      - name: ref
-        run: echo "${{ github.ref_name }}"
-
       - name: 🏗 Checkout repo
         uses: actions/checkout@v4
         with:
@@ -43,6 +40,9 @@ jobs:
       - name: 🏗 Get latest tag
         id: getLatestTag
         run: echo "tag=`git describe --abbrev=0 --tags || echo 'develop'`" >> "$GITHUB_OUTPUT"
+
+      - name: ref
+        run: echo "${{ github.ref_name }}, ${{ steps.getLatestTag.outputs.tag }}"
 
       - name: 🏗 Set Repo Release Ref
         id: setRepoReleaseRef
