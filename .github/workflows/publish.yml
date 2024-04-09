@@ -25,6 +25,7 @@ concurrency:
 
 jobs:
   publish:
+    if: contains(github.ref_name, 'release-please--branches') || contains(github.ref_name, 'rptest-v') || github.ref_name == 'develop'
     name: Publish App
     runs-on:
       - ubuntu-latest
@@ -41,14 +42,14 @@ jobs:
         id: getLatestTag
         run: echo "tag=`git describe --abbrev=0 --tags || echo 'develop'`" >> "$GITHUB_OUTPUT"
 
-      - name: ref
-        run: echo "${{ github.ref }}, ${{ github.ref_name }}, ${{ steps.getLatestTag.outputs.tag }}"
-
       - name: 🏗 Set Repo Release Ref
         id: setRepoReleaseRef
         # QA will release from release-please branch
         # Production will release from latest tag on desired branch
-        run: echo "repoReleaseRef=${{ github.event.inputs.channel == 'qa' && 'release-please--branches--develop--components--rptest' || steps.getLatestTag.outputs.tag }}" >> "$GITHUB_OUTPUT"
+        run: echo "repoReleaseRef=${{ github.event.inputs.channel == 'qa' && github.ref || 'tags/${{ steps.getLatestTag.outputs.tag }}' }}" >> "$GITHUB_OUTPUT"
+
+      - name: ref
+        run: echo "${{ github.ref }}, ${{ github.ref_name }}, ${{ steps.getLatestTag.outputs.tag }}, ${{ steps.setRepoReleaseRef.outputs.repoReleaseRef }}"
 
       - name: 🏗 Checkout release branch
         uses: actions/checkout@v4
