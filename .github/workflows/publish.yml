@@ -48,7 +48,7 @@ jobs:
             echo "repoReleaseRef=${{ github.ref }}" >> "$GITHUB_OUTPUT"
           elif [[ "${{ github.event.inputs.channel }}" == "qa" ]]; then
             echo "repoReleaseRef=${{ github.ref }}" >> "$GITHUB_OUTPUT"
-          elif [[ "${{ github.event.inputs.type }}" == "production" ]] ; then
+          elif [[ "${{ github.event.inputs.channel }}" == "production" ]] ; then
             echo "repoReleaseRef=refs/tags/${{ steps.getLatestTag.outputs.tag }}" >> "$GITHUB_OUTPUT"
           else
             echo "Unhandled event"
